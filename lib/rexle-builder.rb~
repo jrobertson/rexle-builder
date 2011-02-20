@@ -10,7 +10,7 @@ class RexleBuilder
   end
 
   def to_a
-    @.first
+    @a.first
   end
 
   def method_missing(sym, *args)
