@@ -25,3 +25,4 @@ class RexleBuilder
     @a.first
   end
 
+end
