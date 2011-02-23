@@ -15,7 +15,7 @@ class RexleBuilder
 
   def method_missing(sym, *args)
     value, attributes = args.reverse
-    a = [sym.to_s, value || '', attributes || {}]
+    a = [sym.to_s.sub(/^cdata!$/,'!['), value || '', attributes || {}]
     @current_a << a
     if block_given? then
       prev_a = @current_a
