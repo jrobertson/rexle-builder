@@ -14,7 +14,7 @@ class RexleBuilder
   end
 
   def method_missing(sym, *args)
-    args << '' if args.first.is_a? Hash 
+    args << '' if args.last.is_a? Hash 
     value, attributes = args.reverse
     a = [sym.to_s.sub(/^cdata!$/,'!['), value || '', attributes || {}]
     @current_a << a
