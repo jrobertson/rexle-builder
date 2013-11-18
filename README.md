@@ -9,7 +9,7 @@
     end
 
     Rexle.new(a).xml
-    #=&gt; &lt;?xml version='1.0' encoding='UTF-8'?&gt;\n&lt;root&gt;&lt;fun&gt;&lt;tree country='Canada'&gt;mahogany&lt;/tree&gt;&lt;/fun&gt;&lt;green&gt;leaves&lt;/green&gt;&lt;/root&gt;&lt;/pre&gt;
+    #=> <?xml version='1.0' encoding='UTF-8'?>\n<root><fun><tree country='Canada'>mahogany</tree></fun><green>leaves</green></root></pre>
 
 The rexle-builder gem accepts builder style markup and returns a
 nested array suitable for parsing by Rexle.
