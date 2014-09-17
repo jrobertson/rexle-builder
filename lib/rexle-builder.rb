@@ -7,6 +7,12 @@ class RexleBuilder
   def initialize()
     @a = []
     @current_a = @a
+    @namespace = nil
+  end
+
+  def [](s)
+    @namespace = s
+    self
   end
 
   def to_a
@@ -21,6 +27,12 @@ class RexleBuilder
     # reserved keywords are masked with ._ e.g. ._method_missing
     a = [sym.to_s.sub(/^\._/,'').sub(/^cdata!$/,'!['), value || '', \
          attributes || {}]
+
+    if @namespace then 
+      a.first.prepend(@namespace + ':')
+      @namespace = nil 
+    end
+
     @current_a << a
     if block_given? then
       prev_a = @current_a
