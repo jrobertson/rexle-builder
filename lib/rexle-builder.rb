@@ -77,6 +77,10 @@ class RexleBuilder
           build value
         end
         
+      elsif value.is_a? Array  
+        
+        self.send(key.to_sym) {RexleArray.new value}
+        
       else
         
         self.send(key.to_sym,  value)
