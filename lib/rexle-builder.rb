@@ -2,6 +2,16 @@
 
 # file: rexle-builder.rb
 
+
+class RexleArray < Array
+  
+  def initialize(raw_a)
+    a = raw_a.first.is_a?(Array) ? raw_a : [raw_a]
+    super(a)
+  end
+end
+
+
 class RexleBuilder
 
   def initialize(obj=nil)
@@ -45,10 +55,11 @@ class RexleBuilder
       
       r = yield()     
       
-      @current_a << r if r.is_a? Array and r != @a.first and !r.empty?
+      @current_a.concat r if r.class == RexleArray
       @current_a = prev_a      
       
     end
+    
     @a.first
   end
   
