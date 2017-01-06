@@ -14,13 +14,19 @@ end
 
 class RexleBuilder
 
+  def self.build()
+
+    yield(self.new)
+
+  end
+  
   def initialize(obj=nil)
     
     @a = []
     @current_a = @a
     @namespace = nil
     
-    self.root { build obj} if obj.is_a? Hash
+    self.root { buildx obj} if obj.is_a? Hash
   end
 
   def [](s)
@@ -67,14 +73,14 @@ class RexleBuilder
   
   # build from a Hash object
   #
-  def build( h)
+  def buildx( h)
 
     h.each_pair do |key, value|
 
       if value.is_a? Hash then
         
         self.send(key.to_sym) do 
-          build value
+          buildx value
         end
         
       elsif value.is_a? Array  
