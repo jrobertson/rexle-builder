@@ -37,11 +37,17 @@ class RexleBuilder
     end
 
     @current_a << a
+    
     if block_given? then
+      
       prev_a = @current_a
       @current_a = a
-      yield()
+      
+      r = yield()     
+      
+      @current_a << r if r.is_a? Array and r != @a.first and !r.empty?
       @current_a = prev_a      
+      
     end
     @a.first
   end
