@@ -85,7 +85,15 @@ class RexleBuilder
         
       elsif value.is_a? Array  
         
-        self.send(key.to_sym) {RexleArray.new value}
+        self.send(key.to_sym) do
+          
+          if value.first.is_a? Hash then
+            value.map {|x| buildx x} 
+          else
+            RexleArray.new value
+          end
+          
+        end
         
       else
         
