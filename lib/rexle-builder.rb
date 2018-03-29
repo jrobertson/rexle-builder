@@ -26,7 +26,16 @@ class RexleBuilder
     @current_a = @a
     @namespace = nil
     
-    self.root { buildx obj} if obj.is_a? Hash
+    if obj.is_a? Hash then
+      
+      if obj.length > 1 then
+        self.root { buildx obj} 
+      else
+        key = obj.keys.first
+        self.send(key.to_sym) {buildx obj[key]}
+      end
+
+    end
   end
 
   def [](s)
