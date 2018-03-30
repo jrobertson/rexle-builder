@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'rexle-builder'
-  s.version = '0.3.8'
+  s.version = '0.3.9'
   s.summary = 'Generates XML, by producing an array of raw XML ' + 
       'elements which can parsed by the Rexle gem.'
   s.authors = ['James Robertson']
