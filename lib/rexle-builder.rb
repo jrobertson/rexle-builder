@@ -30,7 +30,7 @@ class RexleBuilder
       
       key = obj.keys.first      
       
-      if obj.length > 1 or obj[key].is_a? Array then
+      if obj.length > 1 or obj[key].is_a?(Array) or obj[key].is_a?(String) then
         self.root { buildx obj} 
       else
         self.send(key.to_sym) {buildx obj[key]}
@@ -84,7 +84,7 @@ class RexleBuilder
   # build from a Hash object
   #
   def buildx( h)
-    puts 'h: ' + h.inspect
+
     h.each_pair do |key, value|
 
       if value.is_a? Hash then
