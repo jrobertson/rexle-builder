@@ -54,8 +54,8 @@ class RexleBuilder
     value, attributes = args.reverse
     
     # reserved keywords are masked with ._ e.g. ._method_missing
-    a = [sym.to_s.sub(/^(?:\._|_)/,'').sub(/^cdata!$/,'!['), 
-         attributes || {}, value || '']
+    a = [sym.to_s.sub(/^(?:\._|_)/,'').sub(/^cdata!$/,'![')\
+         .sub(/^comment!$/, '!-'), attributes || {}, value || '']
 
     if @namespace then 
       a.first.prepend(@namespace + ':')
