@@ -14,14 +14,15 @@ end
 
 class RexleBuilder
 
-  def self.build()
+  def self.build(debug: false)
 
-    yield(self.new)
+    yield(self.new(debug: debug))
 
   end
   
-  def initialize(obj=nil)
+  def initialize(obj=nil, debug: false)
     
+    @debug = debug
     @a = []
     @current_a = @a
     @namespace = nil
@@ -52,6 +53,13 @@ class RexleBuilder
     
     args << '' if args.last.is_a? Hash 
     value, attributes = args.reverse
+    
+    value = Rexle.new(value).to_a if value =~ /^<.*>$/
+    
+    if @debug then
+      puts 'sym: ' + sym.inspect
+      puts 'args: ' + args.inspect
+    end
     
     # reserved keywords are masked with ._ e.g. ._method_missing
     a = [sym.to_s.sub(/^(?:\._|_)/,'').sub(/^cdata!$/,'![')\
