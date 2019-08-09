@@ -54,7 +54,15 @@ class RexleBuilder
     args << '' if args.last.is_a? Hash 
     value, attributes = args.reverse
     
-    value = Rexle.new(value).to_a if value =~ /^<.*>$/
+    if value =~ /^<.*>$/ then
+      
+      a = [
+        sym.to_s, 
+        attributes, 
+        *Rexle.new("<root>%s</root>" % value).to_a[2..-1]
+      ]
+      
+    end
     
     if @debug then
       puts 'sym: ' + sym.inspect
@@ -62,7 +70,7 @@ class RexleBuilder
     end
     
     # reserved keywords are masked with ._ e.g. ._method_missing
-    a = [sym.to_s.sub(/^(?:\._|_)/,'').sub(/^cdata!$/,'![')\
+    a ||= [sym.to_s.sub(/^(?:\._|_)/,'').sub(/^cdata!$/,'![')\
          .sub(/^comment!$/, '!-'), attributes || {}, value || '']
 
     if @namespace then 
