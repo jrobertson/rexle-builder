@@ -123,7 +123,7 @@ class RexleBuilder
         
       else
         
-        self.send(key.to_sym,  value)
+        self.send(key.to_sym,  value.to_s)
         
       end
     end
