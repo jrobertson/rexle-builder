@@ -20,7 +20,7 @@ class RexleBuilder
 
   end
   
-  def initialize(obj=nil, debug: false)
+  def initialize(obj=nil, root: 'root', debug: false)
     
     @debug = debug
     @a = []
@@ -32,7 +32,7 @@ class RexleBuilder
       key = obj.keys.first      
       
       if obj.length > 1 or obj[key].is_a?(Array) or obj[key].is_a?(String) then
-        self.root { buildx obj} 
+        self.send(root.to_sym) { buildx obj} 
       else
         self.send(key.to_sym) {buildx obj[key]}
       end
@@ -59,7 +59,7 @@ class RexleBuilder
       a = [
         sym.to_s, 
         attributes, 
-        *Rexle.new("<root>%s</root>" % value).to_a[2..-1]
+        *Rexle.new("<root>%s</root>" % value, debug: @debug).to_a[2..-1]
       ]
       
     end
