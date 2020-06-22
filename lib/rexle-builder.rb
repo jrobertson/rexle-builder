@@ -51,8 +51,13 @@ class RexleBuilder
 
   def method_missing(sym, *args)
     
-    args << '' if args.last.is_a? Hash 
-    value, attributes = args.reverse
+    puts 'args: ' + args.inspect if @debug
+    
+    value = args.shift if args.first.is_a? String    
+    
+    # The obj is an optional Hash object used to build nested XML 
+    # after the current element
+    attributes, obj = args
     
     if value =~ /^<.*>$/ then
       
@@ -72,6 +77,8 @@ class RexleBuilder
     # reserved keywords are masked with ._ e.g. ._method_missing
     a ||= [sym.to_s.sub(/^(?:\._|_)/,'').sub(/^cdata!$/,'![')\
          .sub(/^comment!$/, '!-'), attributes || {}, value || '']
+    
+    a.concat RexleBuilder.new(obj, debug: false).to_a[3..-1] if obj
 
     if @namespace then 
       a.first.prepend(@namespace + ':')
