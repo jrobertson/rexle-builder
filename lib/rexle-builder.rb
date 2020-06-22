@@ -53,11 +53,11 @@ class RexleBuilder
     
     puts 'args: ' + args.inspect if @debug
     
-    value = args.shift if args.first.is_a? String    
+    value = args.find {|x| x.is_a? String} || ''
+    attributes, obj = args.select {|x| x.is_a? Hash}
     
     # The obj is an optional Hash object used to build nested XML 
     # after the current element
-    attributes, obj = args
     
     if value =~ /^<.*>$/ then
       
