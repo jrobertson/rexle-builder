@@ -107,8 +107,13 @@ class RexleBuilder
   # build from a Hash object
   #
   def buildx( h)
-
-    h.each_pair do |key, value|
+    
+    # the following statement prevents duplicate elements where 1 key is 
+    # represented by a String and the other by a symbol.
+    #
+    h2 = h.map {|x| [x[0].to_sym, x[1]]}.to_h
+    
+    h2.each_pair do |key, value|
 
       if value.is_a? Hash then
         
