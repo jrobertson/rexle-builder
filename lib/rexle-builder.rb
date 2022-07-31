@@ -103,7 +103,15 @@ class RexleBuilder
       end
 
       return r if r == @a.first
-      @current_a.concat r if r.is_a? Array
+
+      if r.is_a? Array then
+
+        # only concat if r contains raw Rexle elements.
+        if r.all? {|field, attributes, value| attributes.is_a? Hash} then
+          @current_a.concat r
+        end
+
+      end
       puts '@current_a ' + @current_a.inspect if @debug
       @current_a = prev_a
       return @a.first
