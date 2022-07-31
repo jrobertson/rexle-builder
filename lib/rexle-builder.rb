@@ -96,6 +96,7 @@ class RexleBuilder
       @current_a = a
 
       r = yield()
+      @current_a = prev_a
 
       if @debug then
         puts 'r: ' + r.inspect
@@ -113,7 +114,7 @@ class RexleBuilder
 
       end
       puts '@current_a ' + @current_a.inspect if @debug
-      @current_a = prev_a
+      #@current_a = prev_a
       return @a.first
 
     end
