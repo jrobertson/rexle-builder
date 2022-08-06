@@ -95,7 +95,7 @@ class RexleBuilder
       prev_a = @current_a
       @current_a = a
 
-      r = yield()
+      r = yield(@current_a)
       @current_a = prev_a
 
       if @debug then
@@ -116,6 +116,7 @@ class RexleBuilder
       puts '@current_a ' + @current_a.inspect if @debug
       #@current_a = prev_a
       return @a.first
+      #return @current_a
 
     end
 
@@ -149,7 +150,7 @@ class RexleBuilder
         puts 'buildx found Array' + value.inspect if @debug
         puts 'key:' + key.inspect if @debug
 
-        self.send(key.to_sym) do
+        self.send(key.to_sym) do |row|
 
           r2= []
           value.each do |x|
@@ -160,12 +161,12 @@ class RexleBuilder
               nil
             else
               puts 'x2:' + x.inspect if @debug
-               r2 << x
+               row << x
             end
 
           end
 
-          r2
+          nil
         end
 
       else
