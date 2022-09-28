@@ -106,9 +106,11 @@ class RexleBuilder
       return r if r == @a.first
 
       if r.is_a? Array then
-
+        
         # only concat if r contains raw Rexle elements.
-        if r.all? {|field, attributes, value| attributes.is_a? Hash} then
+        if r.all? {|field, attributes, value| attributes.is_a?(Hash) and \
+                   value} then
+          puts 'concatenating: ' + r.inspect if @debug
           @current_a.concat r
         end
 
